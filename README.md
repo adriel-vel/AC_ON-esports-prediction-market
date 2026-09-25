@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Frontend — Esports Prediction Market (AC_ON)
 
 Milestone 2 prototype: connects a wallet and displays the connected address
@@ -44,3 +45,7 @@ If you already have `node_modules` installed from before this change, run
    a plain EOA. If the resolution/dispute contract ever verifies a signature
    (e.g., for a resolver vote or challenge), it needs to support EIP-1271,
    not just `ecrecover`, or Smart Wallet signatures won't validate.
+=======
+# AC_ON-esports-prediction-market
+CSE 416 Team AC_ON: esports prediction market (AMM + oracle + dispute resolution)
+>>>>>>> 2acef3e853988d681935a6e635a92d8c06183780
