@@ -20,24 +20,28 @@ Milestone 2 prototype. Connects a wallet and shows the address + balance.
 
 **Requires [Node.js](https://nodejs.org/) installed first (any recent LTS version).**
 
-1. Clone or pull this repo, then open a terminal (Terminal on Mac, PowerShell or Command Prompt on Windows).
-2. Move into this folder — replace the path with wherever you saved it:
+1. Clone the whole repo (not just this folder), then open a terminal (Terminal on Mac, PowerShell or Command Prompt on Windows):
 
-```bash
-   cd path/to/frontend-starter
-```
+   ```bash
+   git clone https://github.com/adriel-vel/AC_ON-esports-prediction-market.git
+   ```
 
-   Example on Mac: `cd /Users/yourname/Downloads/frontend-starter`
-   Example on Windows: `cd C:\Users\yourname\Downloads\frontend-starter`
+2. Move into this folder — it's the `frontend` folder inside the repo you just cloned:
 
-   Tip: you can type `cd ` (with a space) and then drag the folder into the terminal window — it fills in the path for you.
+   ```bash
+   cd AC_ON-esports-prediction-market/frontend
+   ```
+
+   (adjust the path if you cloned into a different location, or already have the repo cloned elsewhere — the key part is you need to be *inside* the `frontend` folder, not the repo root, before running npm commands)
+
+   Tip: you can type `cd ` (with a space) and then drag the `frontend` folder into the terminal window — it fills in the path for you.
 
 3. Install dependencies and start the app:
 
-```bash
+   ```bash
    npm install
    npm run dev
-```
+   ```
 
 4. Open **http://localhost:5173** in your browser, click **Connect Wallet**, and sign in with a passkey or email (no extension needed).
 
