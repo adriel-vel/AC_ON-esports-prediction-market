@@ -20,16 +20,28 @@ Milestone 2 prototype. Connects a wallet and shows the address + balance.
 
 **Requires [Node.js](https://nodejs.org/) installed first (any recent LTS version).**
 
-**Mac / Windows — same commands, any terminal:**
+1. Clone or pull this repo, then open a terminal (Terminal on Mac, PowerShell or Command Prompt on Windows).
+2. Move into this folder — replace the path with wherever you saved it:
 
 ```bash
-npm install
-npm run dev
+   cd path/to/frontend-starter
 ```
 
-Then open **http://localhost:5173**, click **Connect Wallet**, and sign in with a passkey or email (no extension needed).
+   Example on Mac: `cd /Users/yourname/Downloads/frontend-starter`
+   Example on Windows: `cd C:\Users\yourname\Downloads\frontend-starter`
 
-If you pull new changes and `npm run dev` errors, run `npm install` again first — dependencies may have changed.
+   Tip: you can type `cd ` (with a space) and then drag the folder into the terminal window — it fills in the path for you.
+
+3. Install dependencies and start the app:
+
+```bash
+   npm install
+   npm run dev
+```
+
+4. Open **http://localhost:5173** in your browser, click **Connect Wallet**, and sign in with a passkey or email (no extension needed).
+
+If you pull new changes later and `npm run dev` errors, run `npm install` again first — dependencies may have changed.
 
 ## Next steps
 
