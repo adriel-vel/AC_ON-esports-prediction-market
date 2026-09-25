@@ -1,51 +1,38 @@
-<<<<<<< HEAD
-# Frontend — Esports Prediction Market (AC_ON)
+# Esports Prediction Market — Frontend (AC_ON)
 
-Milestone 2 prototype: connects a wallet and displays the connected address
-and balance.
+Milestone 2 prototype. Connects a wallet and shows the address + balance.
 
 ## What's running
 
-- React + Vite app
+- React + Vite + Tailwind
 - Wallet connect via wagmi:
-  - **Primary: Coinbase Smart Wallet** — no extension or app install
-    needed, signs in via a popup with a passkey or email. This is what
-    we demo with, since it works on any computer (including school
-    lab machines with no admin rights to install extensions).
-  - **Fallback: injected** — MetaMask or another browser extension, for
-    users who already have one.
-- Displays connected address and testnet balance
+  - **Coinbase Smart Wallet** (primary) — no extension needed, signs in with a passkey or email. Works on any computer, including school lab machines.
+  - **MetaMask/injected** (fallback) — for anyone who already has a wallet extension.
+- Shows connected wallet address and testnet balance
 
-## What's NOT here yet
+## Not here yet
 
-- No contract reads (blocked on Benny's deployed address + ABI)
+- No contract reads (waiting on a deployed contract address + ABI)
 - No trading UI
-- Chain is set to Sepolia as a placeholder — needs to be swapped for whatever
-  testnet the team actually deploys to (see `src/wagmi.ts`)
+- Chain is set to Sepolia as a placeholder — swap it in `src/wagmi.ts` once we pick the real testnet
 
 ## Run it locally
+
+**Requires [Node.js](https://nodejs.org/) installed first (any recent LTS version).**
+
+**Mac / Windows — same commands, any terminal:**
 
 ```bash
 npm install
 npm run dev
 ```
 
-Then open http://localhost:5173 and click "Connect Wallet" — a popup opens,
-no extension required. Sign in with a passkey or email.
+Then open **http://localhost:5173**, click **Connect Wallet**, and sign in with a passkey or email (no extension needed).
 
-If you already have `node_modules` installed from before this change, run
-`npm install` again to pick up the new `@coinbase/wallet-sdk` dependency.
+If you pull new changes and `npm run dev` errors, run `npm install` again first — dependencies may have changed.
 
 ## Next steps
 
-1. Swap the chain config in `src/wagmi.ts` once we know the real testnet.
-2. Once Benny has a contract deployed, add its address + ABI and wire up a
-   read call (e.g., market info) to prove frontend → contract works end to end.
-3. Flag to Benny/Yudhveer: Smart Wallet is a contract wallet (ERC-4337), not
-   a plain EOA. If the resolution/dispute contract ever verifies a signature
-   (e.g., for a resolver vote or challenge), it needs to support EIP-1271,
-   not just `ecrecover`, or Smart Wallet signatures won't validate.
-=======
-# AC_ON-esports-prediction-market
-CSE 416 Team AC_ON: esports prediction market (AMM + oracle + dispute resolution)
->>>>>>> 2acef3e853988d681935a6e635a92d8c06183780
+1. Swap Sepolia for the real testnet in `src/wagmi.ts`
+2. Add the deployed contract address + ABI, wire up a read call
+3. Note for Benny/Yudhveer: Smart Wallet is a contract wallet (ERC-4337) — any signature checks in the resolver contract need EIP-1271 support, not just `ecrecover`
