@@ -49,6 +49,15 @@ Missing:
 - contract events
 - full setup docs
 
+## Team Artifact Assignments
+
+| Owner | Assignment |
+|---|---|
+| Adriel | Team roles, Section 4 frontend row, Section 6 prototype, README, submit. |
+| Benny | Section 2 class diagram + market state diagram, Section 4 contracts row, CI pipeline. |
+| Matthew | Section 3 LMSR + liquidity funding rows, Section 2 trade sequence diagram, renumber requirements FR-01/NFR-01, claim-winnings story. |
+| Yudhveer | Section 1 architecture diagram with on/off-chain labels, oracle and resolver separate, Section 2 resolution sequence diagram, Section 3 trust model, Section 4 backend/DB rows, branch protection. |
+
 ## Prioritized Task List
 
 1. Create/confirm `dev` branch and branch workflow.

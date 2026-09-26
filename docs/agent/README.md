@@ -1,33 +1,27 @@
-# AC_ON Agent Coordination
+# AC_ON Agent Notes
+
+AC_ON is a testnet-only decentralized esports prediction market. Users connect a wallet and trade YES/NO shares on binary esports match outcomes. The intended system uses on-chain contracts for market state, trading, challenges, resolver voting, settlement, and payouts; off-chain services support esports data, oracle proposals, indexing, and API/database reads.
 
 This folder is shared working context for coding agents and human developers. It is not the official course artifact bundle unless the team explicitly decides to reuse parts of it.
 
-All agents should read this folder before making significant changes. After meaningful changes, update the relevant docs so the next person or agent does not have to rediscover the same state.
+Keep this folder small. It should help agents pick the right slice of work without becoming a second project report.
 
-## File Guide
+## Files
 
-- `PROJECT_STATUS.md`: current implementation state only.
-- `ARCHITECTURE.md`: current repo architecture, with implemented/scaffolded/planned labels.
-- `INTERFACES.md`: boundaries between frontend, contracts, backend, oracle, indexer, and database.
-- `TASKS.md`: cross-milestone coordination list.
-- `KNOWN_ISSUES.md`: blockers, mismatches, mocks, temporary behavior, and technical debt.
-- `SETUP.md`: commands that currently work.
-- `DECISIONS.md`: lightweight decision log for significant architecture choices.
-- `milestones/`: milestone-specific scope so agents work on the correct slice.
+- `ARCHITECTURE.md`: current repo state, target architecture, known gaps, and setup notes.
+- `TASKS.md`: current team assignments and coding-agent work queue.
+- `milestones/`: milestone scope so agents do not overbuild beyond the active course milestone.
 
 ## Agent Workflow
 
 1. Read `docs/agent/README.md`.
-2. Read `PROJECT_STATUS.md`.
-3. Read `ARCHITECTURE.md`.
-4. Read `INTERFACES.md`.
-5. Check `TASKS.md`.
-6. Check the active milestone file in `milestones/`.
-7. Inspect the relevant code before editing.
-8. Make scoped changes on a branch.
-9. Run applicable tests or document why they could not run.
-10. Update documentation after meaningful changes.
-11. Record architecture decisions in `DECISIONS.md` when applicable.
+2. Read `ARCHITECTURE.md`.
+3. Check `TASKS.md`.
+4. Check the active milestone file in `milestones/`.
+5. Inspect the relevant code before editing.
+6. Make scoped changes on a branch.
+7. Run applicable tests or document why they could not run.
+8. Update these docs only when the change affects architecture, setup, milestone scope, or task ownership.
 
 ## Branch Workflow
 
@@ -46,7 +40,7 @@ Recommended flow:
 5. Merge into `dev` first.
 6. Promote `dev` to `main` only after the integrated app is in a demo-ready state.
 
-Agents should not commit directly to `main`. Agents should avoid direct commits to `dev` unless the team explicitly asks for that. If a change touches multiple subsystems, document the interface impact in `INTERFACES.md`.
+Agents should not commit directly to `main`. Agents should avoid direct commits to `dev` unless the team explicitly asks for that. If a change touches multiple subsystems, update `ARCHITECTURE.md` and `TASKS.md`.
 
 ## Course Artifacts
 

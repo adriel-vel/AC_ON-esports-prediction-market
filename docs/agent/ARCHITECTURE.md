@@ -1,6 +1,22 @@
-# Architecture
+# AC_ON Architecture
+
+AC_ON is a testnet-only decentralized esports prediction market. Users connect a Coinbase Wallet and trade YES/NO shares on binary esports match outcomes. The planned product is not fully trustless or fully permissionless: contract state should be authoritative for markets and payouts, while esports APIs, oracle automation, initial resolver bootstrapping, and indexing are trusted/off-chain support systems.
 
 This document describes the repository as currently inspected. Do not treat planned components as implemented.
+
+## Current Repo State
+
+| Area | Status | Notes |
+|---|---|---|
+| Frontend | implemented | React + Vite + TypeScript app under `frontend/`. |
+| Wallet | implemented | Coinbase Smart Wallet and injected wallet fallback through wagmi. |
+| Chain config | partial | Frontend currently uses Sepolia as a placeholder. Target chain is Base Sepolia. |
+| Contracts | planned | No Solidity, Foundry project, ABI, deployments, or tests found. |
+| Backend | planned | No FastAPI app found. |
+| Oracle | planned | No oracle service found. |
+| Indexer | planned | No indexer found. |
+| Database | planned | No PostgreSQL schema/config found. |
+| CI | planned | No `.github/workflows` found. |
 
 ## Current Diagram
 
@@ -104,3 +120,63 @@ Off-chain planned responsibilities:
 - Initial bootstrap workflows.
 
 The project should not be described as fully trustless or fully permissionless.
+
+## Planned Market Lifecycle
+
+```text
+CREATED
+  -> OPEN
+  -> CLOSED
+  -> PROPOSED
+  -> FINALIZED
+  -> CLAIMABLE
+
+Dispute path:
+
+PROPOSED
+  -> DISPUTED
+  -> RESOLVER_VOTING
+  -> FINALIZED
+  -> CLAIMABLE
+```
+
+Possible exceptional states include `POSTPONED`, `VOID`, and `ORACLE_TIMEOUT`.
+
+Important invariants:
+
+- Trading at or after close time must fail.
+- Challenged markets must not finalize through the normal unchallenged path.
+- Duplicate payouts must fail.
+- Unauthorized resolver voting must fail.
+- Conflicted resolver participation must fail.
+
+## Interfaces To Add
+
+Actual contract and backend interfaces do not exist yet. Proposed Milestone 2 interfaces:
+
+| Boundary | Interface | Status |
+|---|---|---|
+| Frontend -> contract | one simple read, such as `marketCount()` or sample market getter | proposed |
+| Frontend -> contract | one simple write, such as creating a sample market or placing a temporary trade | proposed |
+| Backend -> frontend/dev tools | `GET /health` | proposed |
+| Contract -> indexer | basic event for market creation or sample state change | proposed |
+
+## Setup Notes
+
+Current frontend commands:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Open `http://localhost:5173`.
+
+No backend, contract, database, oracle, or indexer setup commands exist yet.
+
+## Known Gaps
+
+- Base Sepolia is the target, but the frontend currently uses Sepolia placeholder config.
+- No contract ABI/address exists for frontend reads or writes.
+- No smart contracts, backend, database, oracle, indexer, tests, or CI exist yet.
