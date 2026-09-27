@@ -8,7 +8,7 @@ Core market logic is planned to run on-chain on Base Sepolia. Off-chain services
 
 ```mermaid
 flowchart TB
-  user["Bettor / Market Creator / Resolver"]
+  user["User Roles<br/>Trader / Market Creator / Resolver"]
   frontend["React Frontend<br/>React + Vite + TypeScript<br/>Tailwind + wagmi + viem"]
   wallet["Coinbase Wallet"]
 
@@ -35,30 +35,36 @@ flowchart TB
   subgraph onchain["ON-CHAIN / AUTHORITATIVE STATE"]
     base["Base Sepolia<br/>AUTHORITATIVE SOURCE OF TRUTH"]
 
-    subgraph contracts["Logical Smart Contract System"]
-      market["Prediction Market Contract<br/>market lifecycle<br/>YES / NO share ownership<br/>LMSR AMM pricing<br/>trading<br/>trading deadline enforcement<br/>challenge state<br/>settlement<br/>payout claims<br/>emits contract events"]
-      resolver["Resolver Registry / Governance<br/>active resolver pool<br/>resolver eligibility<br/>resolver admission voting<br/>dispute panel selection<br/>resolver voting<br/>3-of-5 dispute resolution"]
+    subgraph contracts["Smart Contract System"]
+      market["PredictionMarket.sol<br/>main market contract<br/>market lifecycle<br/>YES / NO share balances<br/>trading<br/>trading deadline enforcement<br/>oracle proposals<br/>challenge state<br/>settlement<br/>payout claims<br/>emits market events"]
+      lmsr["LMSR.sol Library<br/>on-chain pricing math<br/>trade cost calculation<br/>liquidity parameter logic<br/>no users or permissions"]
+      resolver["ResolverRegistry.sol<br/>approved resolver pool<br/>resolver eligibility<br/>resolver admission later<br/>selected resolver validation<br/>conflict checks"]
     end
 
     base --- market
+    base --- lmsr
     base --- resolver
   end
 
   resolverWallets["Independent Resolver Wallets"]
   apiNote["API credentials remain server-side.<br/>Never exposed to frontend or blockchain."]
   chainWins["If PostgreSQL state disagrees with blockchain state:<br/>BLOCKCHAIN WINS."]
+  disputeRule["Dispute finalization rule<br/>3-of-5 selected resolver votes must match"]
 
   user -->|"uses application"| frontend
   frontend -->|"wallet connect / request signature"| wallet
   wallet -->|"signed transaction"| market
   frontend -->|"contract reads"| market
-  frontend -->|"indexed market data / API queries"| rest
+  frontend -->|"API request for market data"| rest
+  rest -->|"derived/indexed market data"| frontend
 
   rest <-->|"query derived/indexed data"| db
   market -->|"event logs"| indexer
   resolver -->|"event logs"| indexer
   indexer -->|"indexed / derived data"| db
   market -->|"contract events for reconciliation"| indexer
+  market -.->|"uses pricing library"| lmsr
+  market -.->|"checks resolver status"| resolver
 
   oracle -->|"HTTPS request + server-side API credentials"| esports
   esports -->|"match result"| oracle
@@ -66,8 +72,9 @@ flowchart TB
   oracleWallet -->|"propose outcome<br/>authorized oracle only"| market
   oracle -.-> apiNote
 
-  resolverWallets -->|"resolver vote"| resolver
-  resolver -->|"settles disputed outcome after valid vote threshold"| market
+  resolverWallets -->|"resolver vote transaction"| market
+  market -->|"validates resolver eligibility/conflicts"| resolver
+  market -.-> disputeRule
   chainWins -.-> db
   chainWins -.-> market
 
@@ -77,6 +84,7 @@ flowchart TB
   style db fill:#fff7ed,stroke:#ea580c,stroke-width:2px
   style base fill:#dcfce7,stroke:#15803d,stroke-width:2px
   style chainWins fill:#fee2e2,stroke:#dc2626,stroke-width:2px
+  style disputeRule fill:#fef9c3,stroke:#ca8a04,stroke-width:2px
 ```
 
 ### Authorization Notes
@@ -89,6 +97,12 @@ flowchart TB
   - selected for the dispute
   - no prohibited conflict
 - The market creator, result proposer, and challenger must not resolve their own disputed market.
+
+### On-Chain Contract Split
+
+- `PredictionMarket.sol` is the main user-facing contract for market state, trading, disputes, settlement, and claims.
+- `LMSR.sol` is a Solidity library used by `PredictionMarket.sol` for on-chain pricing math. It is not an off-chain service and users do not call it directly.
+- `ResolverRegistry.sol` stores the approved resolver pool and resolver eligibility rules. `PredictionMarket.sol` checks it when resolver votes are submitted.
 
 ### Database Authority And Recovery
 
