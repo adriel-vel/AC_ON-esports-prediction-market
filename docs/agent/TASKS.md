@@ -16,7 +16,7 @@ Use this file to coordinate current work. Official course artifacts may live out
 | Priority | Owner | Subsystem | Task | Dependencies | Status |
 |---|---|---|---|---|---|
 | P0 | Yudhveer/team | repo | Create or confirm `dev` branch and branch protection rules. | GitHub permissions | ready |
-| P0 | Benny | CI | Add GitHub Actions skeleton for frontend install/build. | package-lock present | ready |
+| P0 | Benny | CI | Add GitHub Actions skeleton for frontend install/build. | package-lock present | done |
 | P0 | Benny/Matthew | contracts | Add minimal Foundry scaffold. | team confirms layout | ready |
 | P0 | Benny/Matthew | contracts | Add one simple sample market read and one simple write. | contract scaffold | ready |
 | P0 | Adriel | frontend | Wire frontend to one contract read. | ABI/address from contracts | blocked |
