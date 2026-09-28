@@ -21,8 +21,8 @@ Use this file to coordinate current work. Official course artifacts may live out
 | P0 | Benny/Matthew | contracts | Add one simple sample market read and one simple write. | contract scaffold | ready |
 | P0 | Adriel | frontend | Wire frontend to one contract read. | ABI/address from contracts | blocked |
 | P0 | Adriel | frontend | Wire frontend to one contract write. | contract write function | blocked |
-| P1 | Yudhveer | backend | Add minimal FastAPI app with `GET /health`. | Python dependency choice | ready |
-| P1 | Yudhveer | database | Decide Milestone 2 persistence: PostgreSQL now or temporary dev DB. | backend scaffold | ready |
+| P1 | Yudhveer | backend | Add minimal FastAPI app with `GET /health` and fake sample-match endpoints. | Python dependency choice | done |
+| P1 | Yudhveer | database | Use Supabase PostgreSQL for Milestone 2 fake sample data via `DATABASE_URL`. | backend scaffold | done |
 | P1 | Yudhveer/Benny | oracle/indexer | Document or scaffold basic event/oracle boundary. | contract event plan | ready |
 | P1 | team | docs/demo | Keep README and Milestone 2 demo checklist current. | working prototype state | ready |
 
