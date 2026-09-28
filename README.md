@@ -1,6 +1,6 @@
 # Esports Prediction Market — Frontend (AC_ON)
 
-Milestone 2 prototype. Connects a wallet and shows the address + balance.
+Milestone 2 prototype. Connects a wallet on **Base Sepolia**, shows the address + balance, and reads a placeholder market from the deployed `PredictionMarket` contract.
 
 ## What's running
 
@@ -8,13 +8,14 @@ Milestone 2 prototype. Connects a wallet and shows the address + balance.
 - Wallet connect via wagmi:
   - **Coinbase Smart Wallet** (primary) — no extension needed, signs in with a passkey or email. Works on any computer, including school lab machines.
   - **MetaMask/injected** (fallback) — for anyone who already has a wallet extension.
-- Shows connected wallet address and testnet balance
+- Shows connected wallet address and Base Sepolia balance
+- Reads market #0 (`getMarket(0)`) from the `PredictionMarket` contract — set the address in `src/predictionMarket.ts`
 
 ## Not here yet
 
-- No contract reads (waiting on a deployed contract address + ABI)
 - No trading UI
-- Chain is set to Sepolia as a placeholder — swap it in `src/wagmi.ts` once we pick the real testnet
+- No market list / odds (one market read only)
+- Frontend, contract, and backend are not connected to each other yet (Milestone 3)
 
 ## Run it locally
 
@@ -49,6 +50,6 @@ If you pull new changes later and `npm run dev` errors, run `npm install` again 
 
 ## Next steps
 
-1. Swap Sepolia for the real testnet in `src/wagmi.ts`
-2. Add the deployed contract address + ABI, wire up a read call
+1. Trading UI (buy/sell YES/NO) wired to contract writes
+2. Market list from the backend/indexer
 3. Note for Benny/Yudhveer: Smart Wallet is a contract wallet (ERC-4337) — any signature checks in the resolver contract need EIP-1271 support, not just `ecrecover`

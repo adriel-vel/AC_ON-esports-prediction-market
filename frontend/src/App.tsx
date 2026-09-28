@@ -1,3 +1,4 @@
+import { MarketCard } from "./MarketCard";
 import { WalletConnect } from "./WalletConnect";
 
 export default function App() {
@@ -13,6 +14,10 @@ export default function App() {
 
         <div className="mt-8">
           <WalletConnect />
+        </div>
+
+        <div className="mt-6">
+          <MarketCard />
         </div>
       </div>
     </div>
