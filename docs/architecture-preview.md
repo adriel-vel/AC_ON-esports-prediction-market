@@ -139,7 +139,7 @@ flowchart TB
   timeout["ORACLE_TIMEOUT<br/>oracle cannot retrieve usable result<br/>does not auto-finalize or auto-void"]
   resolverPath["Resolver Voting<br/>manual/human resolution path"]
   voided["VOID<br/>canceled / no-contest match<br/>no YES/NO winner"]
-  refundRule["Void payout/refund rule<br/>TBD by contract design"]
+  refundRule["Void settlement rule<br/>each outstanding YES or NO share redeems for 0.5 testnet tokens"]
 
   postponed --> timeout
   timeout --> resolverPath
