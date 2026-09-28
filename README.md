@@ -1,8 +1,9 @@
-# Esports Prediction Market — Frontend (AC_ON)
+# AC_ON Esports Prediction Market
 
 Milestone 2 prototype. Connects a wallet on **Base Sepolia**, shows the address + balance, and reads a placeholder market from the deployed `PredictionMarket` contract.
+AC_ON is a testnet-only decentralized esports prediction market for binary esports match outcomes. Users connect a Coinbase Wallet and eventually trade YES/NO shares on match results.
 
-## What's running
+Milestone 2 is focused on proving the architecture can run end to end. The current repo has a working frontend wallet prototype, a FastAPI backend scaffold, Supabase/PostgreSQL-backed fake sample match data, and GitHub Actions CI.
 
 - React + Vite + Tailwind
 - Wallet connect via wagmi:
@@ -11,44 +12,67 @@ Milestone 2 prototype. Connects a wallet on **Base Sepolia**, shows the address 
 - Shows connected wallet address and Base Sepolia balance
 - Reads market #0 (`getMarket(0)`) from the `PredictionMarket` contract — set the address in `src/predictionMarket.ts`
 
-## Not here yet
+## What Works Now 
+
+- React + Vite + TypeScript + Tailwind frontend.
+- Coinbase Smart Wallet connection through wagmi/viem.
+- Connected wallet address and testnet balance display.
+- FastAPI backend with health and sample-match endpoints.
+- Supabase PostgreSQL connection through `DATABASE_URL`.
+- Repeatable seed script for three fake sample matches.
+- CI workflow that builds the frontend and runs backend tests.
 
 - No trading UI
 - No market list / odds (one market read only)
 - Frontend, contract, and backend are not connected to each other yet (Milestone 3)
+- 
+## Important Boundaries
 
-## Run it locally
+- Sample match data is fake Milestone 2 display data only.
+- PostgreSQL/Supabase is not authoritative for real market state.
+- Future smart contracts on Base Sepolia should be the source of truth for markets, trades, settlement, and payouts.
+- The current frontend chain config still uses Sepolia as a placeholder until the contract deployment target is finalized.
 
-**Requires [Node.js](https://nodejs.org/) installed first (any recent LTS version).**
+## Run The Frontend
 
-1. Clone the whole repo (not just this folder), then open a terminal (Terminal on Mac, PowerShell or Command Prompt on Windows):
+Requires Node.js LTS.
 
-   ```bash
-   git clone https://github.com/adriel-vel/AC_ON-esports-prediction-market.git
-   ```
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-2. Move into this folder — it's the `frontend` folder inside the repo you just cloned:
+Open:
 
-   ```bash
-   cd AC_ON-esports-prediction-market/frontend
-   ```
+```text
+http://localhost:5173
+```
 
-   (adjust the path if you cloned into a different location, or already have the repo cloned elsewhere — the key part is you need to be *inside* the `frontend` folder, not the repo root, before running npm commands)
+## Run The Backend
 
-   Tip: you can type `cd ` (with a space) and then drag the `frontend` folder into the terminal window — it fills in the path for you.
+Requires Python 3.12.
 
-3. Install dependencies and start the app:
+```powershell
+cd backend
+py -3.12 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+copy .env.example .env
+```
 
-   ```bash
-   npm install
-   npm run dev
-   ```
+Edit `backend/.env` and set `DATABASE_URL` to the Supabase PostgreSQL connection string. Use the SQLAlchemy psycopg format:
 
-4. Open **http://localhost:5173** in your browser, click **Connect Wallet**, and sign in with a passkey or email (no extension needed).
+```env
+DATABASE_URL=postgresql+psycopg://USER:PASSWORD@HOST:PORT/DBNAME?sslmode=require
+FRONTEND_ORIGIN=http://localhost:5173
+```
 
-If you pull new changes later and `npm run dev` errors, run `npm install` again first — dependencies may have changed.
+Seed the fake sample matches:
 
-## Next steps
+```powershell
+python -m scripts.seed_sample_matches
+```
 
 1. Trading UI (buy/sell YES/NO) wired to contract writes
 2. Market list from the backend/indexer
