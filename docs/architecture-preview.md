@@ -120,10 +120,13 @@ stateDiagram-v2
   CREATED --> OPEN: market activated
   OPEN --> CLOSED: trading deadline reached
   CLOSED --> PROPOSED: oracle proposes result
+  CLOSED --> ORACLE_TIMEOUT: oracle cannot retrieve usable result
+  CLOSED --> VOID: canceled / no-contest match
 
   PROPOSED --> FINALIZED: challenge window expires
   PROPOSED --> DISPUTED: valid challenge
   DISPUTED --> RESOLVER_VOTING: 5 eligible resolvers selected
+  ORACLE_TIMEOUT --> RESOLVER_VOTING: timeout escalated for human resolution
   RESOLVER_VOTING --> FINALIZED: 3-of-5 matching votes
   FINALIZED --> CLAIMABLE: winning positions redeemable
 ```
@@ -133,14 +136,17 @@ stateDiagram-v2
 ```mermaid
 flowchart TB
   postponed["POSTPONED<br/>settlement waits for rescheduled result"]
+  timeout["ORACLE_TIMEOUT<br/>oracle cannot retrieve usable result<br/>does not auto-finalize or auto-void"]
+  resolverPath["Resolver Voting<br/>manual/human resolution path"]
   voided["VOID<br/>canceled / no-contest match<br/>no YES/NO winner"]
-  timeout["ORACLE_TIMEOUT<br/>oracle cannot retrieve usable result<br/>market remains unresolved"]
-  manual["Manual / Dispute Resolution Path"]
+  refundRule["Void payout/refund rule<br/>TBD by contract design"]
 
-  postponed --> manual
-  timeout --> manual
-  voided --> manual
+  postponed --> timeout
+  timeout --> resolverPath
+  voided --> refundRule
 ```
+
+`ORACLE_TIMEOUT` means the system does not have a reliable result yet. It should not silently choose a winner and should not automatically become `VOID`. A timed-out market remains unresolved until it is escalated to resolver voting or another explicitly defined manual resolution path.
 
 ## Trust Model
 
