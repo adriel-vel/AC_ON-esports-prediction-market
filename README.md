@@ -30,7 +30,7 @@ Terminal 1, frontend:
 ```bash
 git clone https://github.com/yuddy-s/AC_ON-esports-prediction-market.git
 cd AC_ON-esports-prediction-market
-git checkout dev
+git checkout feature/contract-read
 cd frontend
 npm install
 npm run dev
@@ -38,10 +38,10 @@ npm run dev
 
 Open http://localhost:5173
 
-Terminal 2, backend (from the repo root):
+Terminal 2, backend (open a new terminal in the same folder where you ran `git clone`):
 
 ```bash
-cd backend
+cd AC_ON-esports-prediction-market/backend
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
@@ -51,6 +51,8 @@ uvicorn app.main:app --reload
 ```
 
 Open http://localhost:8000/docs (or `/api/sample-matches` and `/health`). Windows commands and the Supabase option are in the sections below.
+
+Note: `feature/contract-read` is the branch with the on-chain market card. After that pull request is merged, replace it with `dev` in the checkout line above.
 
 ## Get The Code
 
