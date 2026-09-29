@@ -13,7 +13,7 @@ contract DeployPredictionMarket {
     VmDeploy private constant vm = VmDeploy(address(uint160(uint256(keccak256("hevm cheat code")))));
 
     function run() external returns (PredictionMarket market) {
-        uint256 deployerKey = vm.envUint("BASE_SEPOLIA_PRIVATE_KEY");
+        uint256 deployerKey = vm.envUint("SEPOLIA_PRIVATE_KEY");
 
         vm.startBroadcast(deployerKey);
         market = new PredictionMarket();
