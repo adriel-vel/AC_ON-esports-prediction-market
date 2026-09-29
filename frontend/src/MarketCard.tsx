@@ -1,5 +1,5 @@
 import { useReadContract } from "wagmi";
-import { baseSepolia } from "wagmi/chains";
+import { CHAIN } from "./wagmi";
 import {
   MARKET_STATES,
   PREDICTION_MARKET_ADDRESS,
@@ -16,14 +16,14 @@ export function MarketCard() {
     abi: predictionMarketAbi,
     functionName: "getMarket",
     args: [0n],
-    chainId: baseSepolia.id,
+    chainId: CHAIN.id,
     query: { enabled: !!PREDICTION_MARKET_ADDRESS },
   });
 
   return (
     <div className="rounded-lg border border-neutral-700 bg-neutral-900 p-5">
       <p className="text-xs uppercase tracking-wide text-neutral-500">
-        Market #0 · read from Base Sepolia
+        Market #0 · read from {CHAIN.name}
       </p>
 
       {!PREDICTION_MARKET_ADDRESS && (
@@ -55,12 +55,12 @@ export function MarketCard() {
             Creator: <span className="font-mono">{shortenAddress(data[3])}</span>
           </p>
           <a
-            href={`https://sepolia.basescan.org/address/${PREDICTION_MARKET_ADDRESS}`}
+            href={`${CHAIN.blockExplorers.default.url}/address/${PREDICTION_MARKET_ADDRESS}`}
             target="_blank"
             rel="noreferrer"
             className="text-sm text-amber-300 underline underline-offset-2"
           >
-            View contract on Basescan
+            View contract on {CHAIN.blockExplorers.default.name}
           </a>
         </div>
       )}

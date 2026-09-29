@@ -1,9 +1,12 @@
 import { http, createConfig } from "wagmi";
-import { baseSepolia } from "wagmi/chains";
+import { sepolia } from "wagmi/chains";
 import { coinbaseWallet, injected } from "wagmi/connectors";
 
+// Change this one line to move networks (e.g. baseSepolia for Milestone 3).
+export const CHAIN = sepolia;
+
 export const config = createConfig({
-  chains: [baseSepolia],
+  chains: [CHAIN],
   connectors: [
     // Primary: no extension or app install needed, works on any computer
     // (passkey / email login via a popup).
@@ -15,7 +18,7 @@ export const config = createConfig({
     injected(),
   ],
   transports: {
-    [baseSepolia.id]: http(),
+    [CHAIN.id]: http(),
   },
 });
 

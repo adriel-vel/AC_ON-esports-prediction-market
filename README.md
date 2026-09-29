@@ -1,6 +1,6 @@
 # Esports Prediction Market — Frontend (AC_ON)
 
-Milestone 2 prototype. Connects a wallet on **Base Sepolia**, shows the address + balance, and reads a placeholder market from the deployed `PredictionMarket` contract.
+Milestone 2 prototype. Connects a wallet on **Ethereum Sepolia**, shows the address + balance, and reads a placeholder market from the deployed `PredictionMarket` contract.
 
 ## What's running
 
@@ -8,7 +8,8 @@ Milestone 2 prototype. Connects a wallet on **Base Sepolia**, shows the address 
 - Wallet connect via wagmi:
   - **Coinbase Smart Wallet** (primary) — no extension needed, signs in with a passkey or email. Works on any computer, including school lab machines.
   - **MetaMask/injected** (fallback) — for anyone who already has a wallet extension.
-- Shows connected wallet address and Base Sepolia balance
+- Shows connected wallet address and Sepolia ETH balance
+- Network is set by `CHAIN` in `src/wagmi.ts` (Sepolia for Milestone 2; planned move to Base Sepolia later)
 - Reads market #0 (`getMarket(0)`) from the `PredictionMarket` contract — set the address in `src/predictionMarket.ts`
 
 ## Not here yet
