@@ -2,14 +2,13 @@ import { http, createConfig } from "wagmi";
 import { sepolia } from "wagmi/chains";
 import { coinbaseWallet, injected } from "wagmi/connectors";
 
-// Change this one line to move networks (e.g. baseSepolia for Milestone 3).
-export const CHAIN = sepolia;
-
+// The Milestone 2 PredictionMarket deployment is on Ethereum Sepolia.
 export const config = createConfig({
-  chains: [CHAIN],
+  chains: [sepolia],
   connectors: [
     // Primary: no extension or app install needed, works on any computer
-    // (passkey / email login via a popup).
+    // (passkey / email login via a popup). This is what most users and
+    // demo machines should use.
     coinbaseWallet({
       appName: "Esports Prediction Market",
       preference: "smartWalletOnly",
@@ -18,7 +17,7 @@ export const config = createConfig({
     injected(),
   ],
   transports: {
-    [CHAIN.id]: http(),
+    [sepolia.id]: http(),
   },
 });
 

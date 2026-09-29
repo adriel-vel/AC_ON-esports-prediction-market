@@ -20,7 +20,7 @@ Milestone 2 is focused on proving the architecture can run end to end. The curre
 - Sample match data is fake Milestone 2 display data only.
 - PostgreSQL/Supabase is not authoritative for real market state.
 - Future smart contracts on Base Sepolia should be the source of truth for markets, trades, settlement, and payouts.
-- The frontend chain is the `CHAIN` constant in `frontend/src/wagmi.ts`. It is Ethereum Sepolia for Milestone 2; the planned move to Base Sepolia is a one-word change.
+- The frontend and the Milestone 2 contract run on Ethereum Sepolia (see `frontend/src/wagmi.ts`); moving to Base Sepolia is planned for Milestone 3.
 - The frontend, contract, and backend are not connected to each other yet (Milestone 3).
 
 ## Run The Frontend

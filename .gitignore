@@ -76,6 +76,11 @@ __pycache__/
 *.py[cod]
 *.db
 
+# Foundry build output and local deployment records
+/contracts/cache/
+/contracts/out/
+/contracts/broadcast/
+
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 .parcel-cache

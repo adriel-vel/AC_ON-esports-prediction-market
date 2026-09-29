@@ -1,5 +1,6 @@
 import { MarketCard } from "./MarketCard";
 import { WalletConnect } from "./WalletConnect";
+import { MarketCard } from "./MarketCard";
 
 export default function App() {
   return (

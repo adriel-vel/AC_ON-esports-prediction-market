@@ -1,14 +1,15 @@
-// Paste Benny's deployed Base Sepolia address here.
-export const PREDICTION_MARKET_ADDRESS = undefined as `0x${string}` | undefined;
+import type { Address } from "viem";
 
-// Replace with the "abi" array from contracts/out/PredictionMarket.sol/PredictionMarket.json
-// if Benny's contract differs from the agreed getMarket interface.
+// PredictionMarket deployment on Ethereum Sepolia (chain ID 11155111).
+export const PREDICTION_MARKET_ADDRESS: Address =
+  "0x5fc55783fD777BA52253E985078C3326E6ea9554";
+
 export const predictionMarketAbi = [
   {
     type: "function",
     name: "getMarket",
     stateMutability: "view",
-    inputs: [{ name: "id", type: "uint256" }],
+    inputs: [{ name: "marketId", type: "uint256" }],
     outputs: [
       { name: "question", type: "string" },
       { name: "tradingDeadline", type: "uint256" },
