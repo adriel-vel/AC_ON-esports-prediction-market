@@ -72,3 +72,29 @@ jobs:
 
       - name: Run tests
         run: pytest
+
+  contracts:
+    name: Build and test Foundry contracts
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: contracts
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: v1.8.3
+
+      - name: Check formatting
+        run: forge fmt --check
+
+      - name: Build contracts and deployment script
+        run: forge build && forge build script/Deploy.s.sol
+
+      - name: Run contract tests
+        run: forge test
