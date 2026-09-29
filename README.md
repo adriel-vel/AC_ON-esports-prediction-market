@@ -9,6 +9,7 @@ Milestone 2 is focused on proving the architecture can run end to end. The curre
 - React + Vite + TypeScript + Tailwind frontend.
 - Coinbase Smart Wallet connection through wagmi/viem.
 - Connected wallet address and testnet balance display.
+- Frontend reads a placeholder market (`getMarket(0)`) from the deployed `PredictionMarket` contract. Set the address in `frontend/src/predictionMarket.ts`.
 - FastAPI backend with health and sample-match endpoints.
 - Supabase PostgreSQL connection through `DATABASE_URL`.
 - Repeatable seed script for three fake sample matches.
@@ -19,7 +20,8 @@ Milestone 2 is focused on proving the architecture can run end to end. The curre
 - Sample match data is fake Milestone 2 display data only.
 - PostgreSQL/Supabase is not authoritative for real market state.
 - Future smart contracts on Base Sepolia should be the source of truth for markets, trades, settlement, and payouts.
-- The current frontend chain config still uses Sepolia as a placeholder until the contract deployment target is finalized.
+- The frontend and the Milestone 2 contract run on Ethereum Sepolia (see `frontend/src/wagmi.ts`); moving to Base Sepolia is planned for Milestone 3.
+- The frontend, contract, and backend are not connected to each other yet (Milestone 3).
 
 ## Quick Start (macOS / Linux)
 
@@ -174,10 +176,14 @@ python -m pytest
 
 ## Not Here Yet
 
-- Solidity contracts.
+- Full Solidity contracts (only a placeholder market exists).
 - Base Sepolia deployment.
-- Contract reads/writes from the frontend.
+- Contract writes and a trading UI in the frontend.
 - Real on-chain markets/trading.
 - Oracle service implementation.
 - Indexer implementation.
 - Resolver committee implementation.
+
+## Notes
+
+- Coinbase Smart Wallet is a contract wallet (ERC-4337), so any signature checks in the resolver contract need EIP-1271 support, not just `ecrecover`.
