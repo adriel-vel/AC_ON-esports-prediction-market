@@ -12,11 +12,11 @@ This document describes the repository as currently inspected. Do not treat plan
 | Wallet | implemented | Coinbase Smart Wallet and injected wallet fallback through wagmi. |
 | Chain config | partial | Frontend currently uses Sepolia as a placeholder. Target chain is Base Sepolia. |
 | Contracts | planned | No Solidity, Foundry project, ABI, deployments, or tests found. |
-| Backend | planned | No FastAPI app found. |
+| Backend | scaffolded | FastAPI app under `backend/` with health and fake sample-match endpoints. |
 | Oracle | planned | No oracle service found. |
 | Indexer | planned | No indexer found. |
-| Database | planned | No PostgreSQL schema/config found. |
-| CI | planned | No `.github/workflows` found. |
+| Database | scaffolded | Milestone 2 sample data uses Supabase PostgreSQL through `DATABASE_URL`; data is fake and non-authoritative. |
+| CI | scaffolded | GitHub Actions runs frontend build and backend tests. |
 
 ## Current Diagram
 
@@ -67,9 +67,11 @@ No Solidity, Foundry, ABI, deployment scripts, or contract tests were found. The
 
 ## Backend
 
-Status: planned.
+Status: scaffolded.
 
-No Python/FastAPI backend exists yet. The intended backend should provide application APIs, esports data integration, oracle coordination, indexer support, and PostgreSQL access.
+The backend is a FastAPI service intended to run from `backend/`. For Milestone 2 it exposes health/sample-match API endpoints backed by Supabase PostgreSQL through `DATABASE_URL`.
+
+The sample matches are fake display data only. They are not on-chain markets and must not be treated as authoritative market state.
 
 ## Oracle
 
@@ -85,9 +87,9 @@ No indexer exists yet. Intended behavior: read contract events and store derived
 
 ## Database
 
-Status: planned.
+Status: scaffolded.
 
-No PostgreSQL configuration or schema exists yet. PostgreSQL should be treated as derived/indexed state. Blockchain state is authoritative.
+Milestone 2 uses Supabase PostgreSQL as a hosted development database so teammates do not need local PostgreSQL. PostgreSQL should be treated as derived/indexed or demo display state. Blockchain state is authoritative.
 
 ## Deployment Assumptions
 
@@ -173,10 +175,25 @@ npm run dev
 
 Open `http://localhost:5173`.
 
-No backend, contract, database, oracle, or indexer setup commands exist yet.
+Backend commands:
+
+```bash
+cd backend
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+copy .env.example .env
+python -m scripts.seed_sample_matches
+uvicorn app.main:app --reload
+```
+
+Set `DATABASE_URL` in `backend/.env` to the Supabase PostgreSQL connection string before seeding/running.
+
+No contract, oracle, or indexer setup commands exist yet.
 
 ## Known Gaps
 
 - Base Sepolia is the target, but the frontend currently uses Sepolia placeholder config.
 - No contract ABI/address exists for frontend reads or writes.
-- No smart contracts, backend, database, oracle, indexer, tests, or CI exist yet.
+- No smart contracts, oracle, indexer, or contract tests exist yet.
+- Backend sample-match data is fake/off-chain and exists only for Milestone 2 fallback display.
