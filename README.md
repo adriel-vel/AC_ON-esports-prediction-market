@@ -21,6 +21,37 @@ Milestone 2 is focused on proving the architecture can run end to end. The curre
 - Future smart contracts on Base Sepolia should be the source of truth for markets, trades, settlement, and payouts.
 - The current frontend chain config still uses Sepolia as a placeholder until the contract deployment target is finalized.
 
+## Quick Start (macOS / Linux)
+
+Requires Git, Node.js LTS, and Python 3. Use two terminal windows.
+
+Terminal 1, frontend:
+
+```bash
+git clone https://github.com/yuddy-s/AC_ON-esports-prediction-market.git
+cd AC_ON-esports-prediction-market
+git checkout dev
+cd frontend
+npm install
+npm run dev
+```
+
+Open http://localhost:5173
+
+Terminal 2, backend (from the repo root):
+
+```bash
+cd backend
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+export DATABASE_URL="sqlite:///demo.db"
+python -m scripts.seed_sample_matches
+uvicorn app.main:app --reload
+```
+
+Open http://localhost:8000/docs (or `/api/sample-matches` and `/health`). Windows commands and the Supabase option are in the sections below.
+
 ## Get The Code
 
 Requires [Git](https://git-scm.com/). `main` and `dev` are protected: create a branch from `dev` and open a pull request into `dev`.
