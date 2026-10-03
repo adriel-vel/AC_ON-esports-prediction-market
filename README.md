@@ -32,7 +32,7 @@ Terminal 1, frontend:
 ```bash
 git clone https://github.com/yuddy-s/AC_ON-esports-prediction-market.git
 cd AC_ON-esports-prediction-market
-git checkout feature/contract-read
+git checkout dev
 cd frontend
 npm install
 npm run dev
@@ -53,8 +53,6 @@ uvicorn app.main:app --reload
 ```
 
 Open http://localhost:8000/docs (or `/api/sample-matches` and `/health`). Windows commands and the Supabase option are in the sections below.
-
-Note: `feature/contract-read` is the branch with the on-chain market card. After that pull request is merged, replace it with `dev` in the checkout line above.
 
 ## Get The Code
 
